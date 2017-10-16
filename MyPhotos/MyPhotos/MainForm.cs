@@ -113,11 +113,13 @@ namespace MyPhotos
         {
             if (pbxPhoto.Image != null)
             {
-                sttInfo.Text = Manager.Current.Filename;
+                sttInfo.Text = Manager.Current.Caption;
                 sttImageSize.Text = String.Format("{0:#}x{1:#}",
                                             pbxPhoto.Image.Width,
                                             pbxPhoto.Image.Height);
-                // sttAlbumPos is set in ch. 6
+                sttAlbumPos.Text = String.Format("{ 0:0}/{ 1:0}",
+                                                Manager.Index + 1,
+                                                Manager.Album.Count);
             }
             else
             {
