@@ -67,7 +67,7 @@ namespace manning.MyphotoAlbum
         public AlbumManager(string name):this()
         {
             _name = name;
-            _album = AlbumStorage.ReadAlbum();
+            _album = AlbumStorage.ReadAlbum(name);
             if (Album.Count > 0)
                 Index = 0;
             throw new NotImplementedException();

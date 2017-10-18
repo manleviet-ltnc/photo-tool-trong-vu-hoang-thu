@@ -32,9 +32,11 @@ namespace MyPhotos
         }
         private void NewAlbum()
         {
-            // TODO: clean up, save existing album
-            Manager = new AlbumManager();
-            DisplayAlbum(); 
+            if (Manager == null || SaveAndCloseAlbum())
+            {
+                Manager = new AlbumManager();
+                DisplayAlbum();
+            } 
         }
         private void DisplayAlbum()
         {
@@ -144,18 +146,46 @@ namespace MyPhotos
             dlg.RestoreDirectory = true;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                // TODO: Save any existing album
+                string path = dlg.FileName;
+                if (!SaveAndCloseAlbum())
+                    return;
+                try
+                {
+                    // Open the new album
+                    // TODO: handle invalid album file
+                    Manager = new AlbumManager(path);
+                }
+                catch (AlbumStorageException aex)
+                {
+                    string msg = String.Format("Unable to open album file {0}\n({1})",
+                                                path, aex.Message);
+                    MessageBox.Show(msg, "Unable to Open");
+                    Manager = new AlbumManager();
+                }
 
-                // Open the new album
-                // TODO: handle invalid album file
-                Manager = new AlbumManager(dlg.FileName);
                 DisplayAlbum();
             }
             dlg.Dispose();
         }
         private void SaveAlbum(string name)
         {
-            Manager.Save(name, true);
+            try
+            {
+                Manager.Save(name, true);
+            }
+            catch (AlbumStorageException aex)
+            {
+                string msg= string.Format("Unable to save album {0} ({1}\n\n"
+                                          + " Do you wish to save album"
+                                          + " under a alternate name",
+                                          name, aex.Message);
+               DialogResult result= MessageBox.Show(msg, "Unable to Save", MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Error, MessageBoxDefaultButton.Button2);
+                if(result==DialogResult.Yes)
+                {
+                    SaveAsAlbum();
+                }
+            }
         }
         private void SaveAlbum()
         {
@@ -183,6 +213,30 @@ namespace MyPhotos
                 SetTitleBar();
             }
             dlg.Dispose();
+        }
+
+        private bool SaveAndCloseAlbum()
+        {
+            if(Manager.Album.HasChanged)
+            {
+                string msg;
+                if (string.IsNullOrEmpty(Manager.FullName))
+                    msg = " Do you wish to save your changes?";
+                else
+                    msg = string.Format("Do you wish to save your changes to \n{0}?", Manager.FullName);
+                DialogResult result = MessageBox.Show(this, msg, "Save changes?",
+                                                    MessageBoxButtons.YesNoCancel,
+                                                    MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                    SaveAlbum();
+                else if (result == DialogResult.Cancel)
+                    return false;
+            }
+            if (Manager.Album != null)
+                Manager.Album.Dispose();
+            Manager = new AlbumManager();
+            SetTitleBar();
+            return true; 
         }
 
         private void mnuFileSave_Click(object sender, EventArgs e)
