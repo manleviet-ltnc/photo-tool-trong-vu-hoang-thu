@@ -313,5 +313,15 @@ namespace MyPhotos
             mnuNext.Enabled = (Manager.Index < Manager.Album.Count - 1);
             mnuPrevious.Enabled = (Manager.Index > 0);
         }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (SaveAndCloseAlbum() == false)
+                e.Cancel = true;
+            else
+                e.Cancel = false;
+            base.OnFormClosing(e);
+        }
+        
     }
 }
