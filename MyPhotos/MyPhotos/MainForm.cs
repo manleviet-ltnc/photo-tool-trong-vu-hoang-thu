@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using manning.MyphotoAlbum;
+using manning.MyPhotoControls;
 
 namespace MyPhotos
 {
@@ -25,6 +26,14 @@ namespace MyPhotos
                 _manager = value;
             }
         }
+
+        private PixelDialog _dlgPixel = null;
+        private PixelDialog PixelForm
+        {
+            get { return _dlgPixel; }
+            set { _dlgPixel = value; }
+        }
+
         public MainForm()
         {
             InitializeComponent();
@@ -43,6 +52,9 @@ namespace MyPhotos
             pbxPhoto.Image = Manager.CurrentImage;
             SetTitleBar();
             SetStatusStrip(null);
+
+            Point p = pbxPhoto.PointToClient(Form.MousePosition);
+            UpdatePixelDialog(p.X, p.Y);
         }
         private void SetTitleBar()
         {
@@ -312,6 +324,7 @@ namespace MyPhotos
         {
             mnuNext.Enabled = (Manager.Index < Manager.Album.Count - 1);
             mnuPrevious.Enabled = (Manager.Index > 0);
+            mnuPhotoProps.Enabled = (Manager.Current != null);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -322,6 +335,48 @@ namespace MyPhotos
                 e.Cancel = false;
             base.OnFormClosing(e);
         }
-        
+
+        private void mnuPixelData_Click(object sender, EventArgs e)
+        {
+            if (PixelForm==null||PixelForm.IsDisposed)
+            {
+                PixelForm = new PixelDialog();
+                PixelForm.Owner = this;
+            }
+            PixelForm.Show();
+            Point p = pbxPhoto.PointToClient(Form.MousePosition);
+            UpdatePixelDialog(p.X, p.Y);
+        }
+        private void UpdatePixelDialog(int x , int y)
+        {
+            if(PixelForm!=null&&PixelForm.Visible)
+            {
+                Bitmap bmp = Manager.CurrentImage;
+                PixelForm.Text = (Manager.Current == null) ? "Pixel Data" : Manager.Current.Caption;
+
+                if (bmp == null || !pbxPhoto.DisplayRectangle.Contains(x, y))
+                    PixelForm.ClearPixelData();
+                else
+                    PixelForm.UpdatePixelData(x, y, bmp, pbxPhoto.DisplayRectangle,
+                                                new Rectangle(0, 0, bmp.Width, bmp.Height),
+                                                pbxPhoto.SizeMode);
+            }
+        }
+
+        private void pbxPhoto_MouseMove(object sender, MouseEventArgs e) 
+        {
+            UpdatePixelDialog(e.X, e.Y);
+        }
+
+        private void mnuPhotoProps_Click(object sender, EventArgs e)
+        {
+            if (Manager.Current == null)
+                return;
+            using (PhotoEditDialog dlg = new PhotoEditDialog(Manager))
+            {
+                if (dlg.ShowDialog() == DialogResult.OK)
+                    DisplayAlbum();
+            }
+        }
     }
 }
