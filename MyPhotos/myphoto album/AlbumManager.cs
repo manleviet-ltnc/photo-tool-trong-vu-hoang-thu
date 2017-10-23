@@ -116,8 +116,9 @@ namespace manning.MyphotoAlbum
                 throw new ArgumentNullException("name");
             if (name != FullName && AlbumExits(name) && !overwrite)
                 throw new ArgumentException(" An album with this name exists");
-            AlbumStorage.WriteAlbum(Album, FullName);
             FullName = name;
+            AlbumStorage.WriteAlbum(Album, FullName);
+            
         }
         public bool MoveNext()
         {
