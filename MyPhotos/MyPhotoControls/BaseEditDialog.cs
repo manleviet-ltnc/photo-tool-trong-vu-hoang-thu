@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace manning.MyPhotoControls
+namespace Manning.MyPhotoControls
 {
     public partial class BaseEditDialog : Form
     {
@@ -17,7 +17,7 @@ namespace manning.MyPhotoControls
             InitializeComponent();
         }
 
-       protected virtual void ResetDialog()
+        protected virtual void ResetDialog()
         {
             // Does nothing in base class
         }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.IO;
 
-namespace manning.MyphotoAlbum
+namespace Manning.MyPhotoAlbum
 {
-  public  class AlbumManager
+    public class AlbumManager
     {
         static private string _defaultPath;
         static public string DefaultPath
@@ -16,6 +16,7 @@ namespace manning.MyphotoAlbum
             get { return _defaultPath; }
             set { _defaultPath = value; }
         }
+
         private string _pwd;
         public string Password
         {
@@ -25,10 +26,34 @@ namespace manning.MyphotoAlbum
                 _pwd = value;
             }
         }
+
         static AlbumManager()
         {
             _defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\Albums";
         }
+
+        public AlbumManager()
+        {
+            _album = new PhotoAlbum();
+        }
+
+        public AlbumManager(string name) : this()
+        {
+            _name = name;
+            _album = AlbumStorage.ReadAlbum(name);
+            if (Album.Count > 0)
+                Index = 0;
+        }
+
+        public AlbumManager(string name, string pwd) : this()
+        {
+            _name = name;
+            _album = AlbumStorage.ReadAlbum(name, pwd);
+            Password = pwd;
+            if (Album.Count > 0)
+                Index = 0;
+        }
+
         private int _pos = -1;
         public int Index
         {
@@ -46,12 +71,14 @@ namespace manning.MyphotoAlbum
                 _pos = value;
             }
         }
+
         private string _name = String.Empty;
         public string FullName
         {
             get { return _name; }
             private set { _name = value; }
         }
+
         public string ShortName
         {
             get
@@ -63,25 +90,15 @@ namespace manning.MyphotoAlbum
             }
         }
 
-
         private PhotoAlbum _album;
         public PhotoAlbum Album
         {
             get { return _album; }
         }
-        public AlbumManager()
-        {
-            _album = new PhotoAlbum();
-        }
-        public AlbumManager(string name):this()
-        {
-            _name = name;
-            _album = AlbumStorage.ReadAlbum(name);
-            if (Album.Count > 0)
-                Index = 0;
-            throw new NotImplementedException();
-        }
-        public photograph Current
+
+        
+
+        public Photograph Current
         {
             get
             {
@@ -89,8 +106,8 @@ namespace manning.MyphotoAlbum
                     return null;
                 return Album[_pos];
             }
-
         }
+
         public Bitmap CurrentImage
         {
             get
@@ -100,40 +117,46 @@ namespace manning.MyphotoAlbum
                 return Current.Image;
             }
         }
+
         static public bool AlbumExits(string name)
         {
             return File.Exists(name);
         }
+
         public void Save()
         {
             if (FullName == null)
                 throw new InvalidOperationException("Unable to save album with no name");
-            AlbumStorage.WriteAlbum(Album, FullName);
+            AlbumStorage.WriteAlbum(Album, FullName, Password);
         }
+
         public void Save(string name, bool overwrite)
         {
             if (name == null)
                 throw new ArgumentNullException("name");
             if (name != FullName && AlbumExits(name) && !overwrite)
-                throw new ArgumentException(" An album with this name exists");
+                throw new ArgumentException("An album with this name exists");
+
+            AlbumStorage.WriteAlbum(Album, name, Password);
             FullName = name;
-            AlbumStorage.WriteAlbum(Album, FullName);
-            
         }
+
         public bool MoveNext()
         {
             if (Index >= Album.Count)
                 return false;
+
             Index++;
             return true;
         }
+
         public bool MovePrev()
         {
             if (Index <= 0)
                 return false;
+
             Index--;
             return true;
         }
-
     }
 }

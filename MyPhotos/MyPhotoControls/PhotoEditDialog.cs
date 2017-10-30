@@ -5,43 +5,47 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using manning.MyphotoAlbum;
+using Manning.MyPhotoAlbum;
 
-namespace manning.MyPhotoControls
-{ 
-    public partial class PhotoEditDialog : manning.MyPhotoControls.BaseEditDialog
+namespace Manning.MyPhotoControls
+{
+    public partial class PhotoEditDialog : Manning.MyPhotoControls.BaseEditDialog
     {
-        private photograph _photo;
-        private photograph Photo
+        private Photograph _photo;
+        private Photograph Photo
         {
             get { return _photo; }
         }
+
         private AlbumManager _manager = null;
         private AlbumManager Manager
         {
             get { return _manager; }
         }
+
         protected PhotoEditDialog()
         {
             InitializeComponent();
         }
 
-        public PhotoEditDialog(photograph photo):this()
+        public PhotoEditDialog(Photograph photo) : this()
         {
             if (photo == null)
-                throw new ArgumentNullException(" The photo parameter cannot be null");
+                throw new ArgumentNullException("The photo parameter cannot be null");
+
             InitializeDialog(photo);
         }
 
-        public PhotoEditDialog(AlbumManager mgr):this()
+        public PhotoEditDialog(AlbumManager mgr) : this()
         {
             if (mgr == null)
                 throw new ArgumentNullException("The mgr parameter cannot be null");
+
             _manager = mgr;
             InitializeDialog(mgr.Current);
         }
 
-        private void InitializeDialog(photograph photo)
+        private void InitializeDialog(Photograph photo)
         {
             _photo = photo;
             ResetDialog();
@@ -50,25 +54,27 @@ namespace manning.MyPhotoControls
 
         protected override void ResetDialog()
         {
-            photograph photo = Photo;
-            if(photo!=null)
+            Photograph photo = Photo;
+            if (photo != null)
             {
-                txtPhotoFile.Text = photo.Filename;
+                txtPhotoFile.Text = photo.FileName;
                 txtCaption.Text = photo.Caption;
                 mskDateTaken.Text = photo.DateTaken.ToString();
                 txtPhotographer.Text = photo.Photographer;
                 txtNotes.Text = photo.Notes;
             }
         }
+
         protected override void OnClosing(CancelEventArgs e)
         {
             if (DialogResult == DialogResult.OK)
                 SaveSettings();
         }
+
         private void SaveSettings()
         {
-            photograph photo = Photo;
-            if(photo!=null)
+            Photograph photo = Photo;
+            if (photo != null)
             {
                 photo.Caption = txtCaption.Text;
                 photo.Photographer = txtPhotographer.Text;
@@ -81,10 +87,9 @@ namespace manning.MyPhotoControls
             }
         }
 
-       
         private void txtCaption_TextChanged(object sender, EventArgs e)
         {
-            Text = txtCaption.Text + "-Properties";
+            Text = txtCaption.Text + " - Properties";
         }
 
         private static class CurrentDate
@@ -94,20 +99,21 @@ namespace manning.MyPhotoControls
                 DateTime result = DateTime.Parse(input);
                 if (result > DateTime.Now)
                     throw new FormatException("The given date is in the future.");
+
                 return result;
             }
         }
 
         private void mskDateTaken_TypeValidationCompleted(object sender, TypeValidationEventArgs e)
         {
-            if(!e.IsValidInput)
+            if (!e.IsValidInput)
             {
-                DialogResult result = MessageBox.Show("The Date Taken entry is invalid or"
-                                                     + "in the future may be ignore."
-                                                     + "Do you wish to correct this?",
-                                                     "Photo properties",
-                                                     MessageBoxButtons.YesNo,
-                                                     MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("The Date Taken entry is invalid or "
+                                                      + "in the future and may be ignored."
+                                                      + "Do you wish to correct this?",
+                                                      "Photo Properties",
+                                                      MessageBoxButtons.YesNo,
+                                                      MessageBoxIcon.Question);
                 e.Cancel = (result == DialogResult.Yes);
             }
         }

@@ -4,9 +4,9 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6735F42F-E609-461F-9E46-99E1FEB42F80}</ProjectGuid>
+    <ProjectGuid>{ABE505EF-7036-49D3-AD12-F0C44552FFD5}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>manning.MyPhotoControls</RootNamespace>
+    <RootNamespace>Manning.MyPhotoControls</RootNamespace>
     <AssemblyName>MyPhotoControls</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -41,17 +41,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlbumController.cs" />
     <Compile Include="AlbumEditDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AlbumEditDialog.Designer.cs">
       <DependentUpon>AlbumEditDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="AlbumPasswordDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlbumPasswordDialog.Designer.cs">
+      <DependentUpon>AlbumPasswordDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseEditDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BaseEditDialog.Designer.cs">
       <DependentUpon>BaseEditDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FlybyTextProvider.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="PhotoEditDialog.cs">
       <SubType>Form</SubType>
@@ -69,14 +79,17 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\myphoto album\MyphotoAlbum.csproj">
-      <Project>{be1bda7b-cabe-472b-bed5-ef3420fa078d}</Project>
-      <Name>MyphotoAlbum</Name>
+    <ProjectReference Include="..\MyPhotoAlbum\MyPhotoAlbum.csproj">
+      <Project>{ba28f54e-5817-4900-a0d6-621702d8e6c9}</Project>
+      <Name>MyPhotoAlbum</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AlbumEditDialog.resx">
       <DependentUpon>AlbumEditDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlbumPasswordDialog.resx">
+      <DependentUpon>AlbumPasswordDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BaseEditDialog.resx">
       <DependentUpon>BaseEditDialog.cs</DependentUpon>

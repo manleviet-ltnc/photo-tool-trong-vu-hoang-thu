@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPhotos", "MyPhotos\MyPhotos.csproj", "{E9373780-A424-402E-85B3-FC48FFA8F414}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAlbumEditor", "MyAlbumEditor\MyAlbumEditor.csproj", "{72969D54-56D8-400B-B00A-C445C2BC2DD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPhotoAlbum", "MyPhotoAlbum\MyPhotoAlbum.csproj", "{BA28F54E-5817-4900-A0D6-621702D8E6C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPhotoAlbum", "..\MyPhotos\MyPhotoAlbum\MyPhotoAlbum.csproj", "{BA28F54E-5817-4900-A0D6-621702D8E6C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPhotoControls", "MyPhotoControls\MyPhotoControls.csproj", "{ABE505EF-7036-49D3-AD12-F0C44552FFD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPhotoControls", "..\MyPhotos\MyPhotoControls\MyPhotoControls.csproj", "{ABE505EF-7036-49D3-AD12-F0C44552FFD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E9373780-A424-402E-85B3-FC48FFA8F414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9373780-A424-402E-85B3-FC48FFA8F414}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9373780-A424-402E-85B3-FC48FFA8F414}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9373780-A424-402E-85B3-FC48FFA8F414}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72969D54-56D8-400B-B00A-C445C2BC2DD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72969D54-56D8-400B-B00A-C445C2BC2DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72969D54-56D8-400B-B00A-C445C2BC2DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72969D54-56D8-400B-B00A-C445C2BC2DD0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BA28F54E-5817-4900-A0D6-621702D8E6C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BA28F54E-5817-4900-A0D6-621702D8E6C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA28F54E-5817-4900-A0D6-621702D8E6C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,6 +32,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {268D8B9F-4454-4A3B-88AC-24FD90158057}
+		SolutionGuid = {8D01585B-FA20-4C49-A3CD-3176BE985139}
 	EndGlobalSection
 EndGlobal

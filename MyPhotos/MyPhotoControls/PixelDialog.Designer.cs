@@ -1,4 +1,4 @@
-﻿namespace manning.MyPhotoControls
+﻿namespace Manning.MyPhotoControls
 {
     partial class PixelDialog
     {
@@ -48,6 +48,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblX, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblY, 1, 1);
@@ -57,9 +58,8 @@
             this.tableLayoutPanel1.Controls.Add(this.lblGreen, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label9, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.lblBlue, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 1);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -67,15 +67,15 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(134, 161);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(134, 160);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnClose
             // 
             this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnClose.Location = new System.Drawing.Point(31, 167);
+            this.btnClose.Location = new System.Drawing.Point(27, 167);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(68, 23);
+            this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 1;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -175,7 +175,7 @@
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.Location = new System.Drawing.Point(3, 128);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(61, 33);
+            this.label9.Size = new System.Drawing.Size(61, 32);
             this.label9.TabIndex = 8;
             this.label9.Text = "Blue:";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -214,6 +214,7 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblX;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblY;
@@ -223,7 +224,6 @@
         private System.Windows.Forms.Label lblGreen;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lblBlue;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnClose;
     }
 }
