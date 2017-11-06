@@ -24,6 +24,7 @@ namespace MyPhotos
             set
             {
                 _manager = value;
+                AssignSelectDropDown();
             }
         }
 
@@ -504,5 +505,36 @@ namespace MyPhotos
             base.OnActivated(e);
         }
 
+        private void AssignSelectDropDown()
+        {
+            ToolStripDropDown drop = new ToolStripDropDown();
+
+            PhotoAlbum a = Manager.Album;
+            for(int i=0;i<a.Count;i++)
+            {
+                PictureBox box = new PictureBox();
+                box.SizeMode = PictureBoxSizeMode.Zoom;
+                box.Image = a[i].Image;
+                box.Dock = DockStyle.Fill;
+
+                ToolStripControlHost host = new ToolStripControlHost(box);
+                host.AutoSize = false;
+                host.Size = new Size(tssSelect.Width, tssSelect.Width);
+                host.Tag = i;
+                host.Click += delegate (object o, EventArgs e)
+                  {
+                      int x = (int)(o as ToolStripItem).Tag;
+                      Manager.Index = x;
+                      drop.Close();
+                      DisplayAlbum();
+                  };
+                drop.Items.Add(host);
+            }
+            if(drop.Items.Count>0)
+            {
+                tssSelect.DropDown = drop;
+                tssSelect.DefaultItem = drop.Items[0];
+            }
+        }
     }
 }
