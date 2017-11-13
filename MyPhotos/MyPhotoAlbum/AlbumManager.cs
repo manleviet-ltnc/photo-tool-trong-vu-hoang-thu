@@ -198,7 +198,7 @@ namespace Manning.MyPhotoAlbum
         {
             _name = RenameAlbum(FullName, newName);
         }
-        public void RenameAlbum(string oldPath,string newName)
+        public static string RenameAlbum(string oldPath,string newName)
         {
             string dir = Path.GetDirectoryName(oldPath);
             string ext = Path.GetExtension(oldPath);
